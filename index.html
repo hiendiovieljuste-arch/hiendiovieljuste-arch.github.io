@@ -1,0 +1,3427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DélicesFood | Livraison de Repas Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #FF6B35;
+            --secondary: #1A1A2E;
+            --accent: #00C897;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --danger: #dc3545;
+            --rainbow-1: #FF6B6B;
+            --rainbow-2: #4ECDC4;
+            --rainbow-3: #FFD166;
+            --rainbow-4: #06D6A0;
+            --rainbow-5: #118AB2;
+            --rainbow-6: #EF476F;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header amélioré avec arc-en-ciel */
+        header {
+            background: linear-gradient(90deg, 
+                var(--rainbow-1) 0%, 
+                var(--rainbow-2) 20%, 
+                var(--rainbow-3) 40%, 
+                var(--rainbow-4) 60%, 
+                var(--rainbow-5) 80%, 
+                var(--rainbow-6) 100%);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            margin: 5px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6));
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            background: linear-gradient(45deg, var(--rainbow-6), var(--rainbow-4));
+        }
+        
+        .whatsapp-button {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-button:hover {
+            background: linear-gradient(45deg, #128C7E, #25D366);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+            background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Carrousel amélioré */
+        .carousel-section {
+            padding: 150px 0 50px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(200,216,255,0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+        
+        .carousel-content {
+            position: absolute;
+            bottom: 60px;
+            left: 50px;
+            color: white;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            animation: slideInUp 0.8s ease;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .carousel-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .carousel-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--rainbow-3);
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .carousel-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 3;
+            transform: translateY(-50%);
+        }
+        
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--dark);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .carousel-btn:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background: white;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Image en plein écran */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow: hidden;
+        }
+        
+        .fullscreen-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .fullscreen-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+        }
+        
+        .fullscreen-description {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            max-width: 80%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+        
+        .close-fullscreen:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        /* Modal pour commande */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,26,46,0.95) 100%);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: modalFadeIn 0.5s ease;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* Panier flottant avec arc-en-ciel */
+        .cart-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6); }
+            50% { box-shadow: 0 8px 35px rgba(255, 107, 53, 0.9); transform: scale(1.05); }
+            100% { box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6); }
+        }
+        
+        .cart-floating:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.8);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, var(--rainbow-6), var(--rainbow-4));
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        
+        /* Section admin améliorée */
+        .admin-section {
+            display: none;
+            padding: 100px 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .admin-login {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .admin-dashboard {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .admin-header {
+            background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6));
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-nav {
+            background: linear-gradient(90deg, rgba(248,249,250,0.9), rgba(233,236,239,0.9));
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .admin-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .admin-nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-nav a:hover, .admin-nav a.active {
+            background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .admin-content {
+            padding: 30px;
+            min-height: 600px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .admin-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .admin-card h4 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6)) 1;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-table th {
+            background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-3));
+            color: white;
+            font-weight: 600;
+        }
+        
+        .admin-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-new { background: linear-gradient(45deg, var(--rainbow-2), var(--rainbow-4)); color: white; }
+        .status-processing { background: linear-gradient(45deg, var(--rainbow-3), var(--rainbow-1)); color: white; }
+        .status-delivered { background: linear-gradient(45deg, var(--rainbow-4), var(--rainbow-2)); color: white; }
+        .status-cancelled { background: linear-gradient(45deg, var(--rainbow-6), var(--rainbow-1)); color: white; }
+        .status-online { background: linear-gradient(45deg, var(--success), #20c997); color: white; }
+        .status-offline { background: linear-gradient(45deg, var(--danger), #ff6b6b); color: white; }
+        
+        /* Menu amélioré avec images */
+        .menu {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            background: white;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 25px;
+        }
+        
+        .menu-item h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-size: 1.4rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .add-to-cart {
+            background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .add-to-cart:hover {
+            background: linear-gradient(45deg, var(--rainbow-6), var(--rainbow-4));
+            transform: rotate(180deg) scale(1.1);
+        }
+        
+        /* Section features avec arc-en-ciel */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(135deg, 
+                rgba(255,107,53,0.1) 0%, 
+                rgba(78,205,196,0.1) 33%, 
+                rgba(255,209,102,0.1) 66%, 
+                rgba(239,71,111,0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6));
+            border-radius: 3px;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 30px auto 0;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer avec arc-en-ciel */
+        footer {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2d3436 100%);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                var(--rainbow-1) 0%, 
+                var(--rainbow-2) 20%, 
+                var(--rainbow-3) 40%, 
+                var(--rainbow-4) 60%, 
+                var(--rainbow-5) 80%, 
+                var(--rainbow-6) 100%);
+        }
+        
+        /* Responsive amélioré */
+        @media (max-width: 1200px) {
+            .carousel-container {
+                height: 450px;
+            }
+            
+            .carousel-content {
+                max-width: 500px;
+                left: 30px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .carousel-container {
+                height: 400px;
+            }
+            
+            .carousel-content {
+                max-width: 400px;
+                padding: 20px;
+            }
+            
+            .carousel-content h3 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .admin-nav ul {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 350px;
+            }
+            
+            .carousel-content {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                margin: 20px;
+                max-width: calc(100% - 40px);
+            }
+            
+            .carousel-nav {
+                padding: 0 10px;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .carousel-container {
+                height: 300px;
+            }
+            
+            .carousel-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .carousel-price {
+                font-size: 1.5rem;
+            }
+            
+            .carousel-description {
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-card {
+                padding: 20px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations supplémentaires */
+        @keyframes rainbowGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .rainbow-text {
+            animation: rainbowGlow 3s infinite linear;
+        }
+        /* ==================== AJOUTER ICI DANS LA BALISE STYLE ==================== */
+
+/* Styles pour la galerie de photos */
+.gallery-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 250px;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+    transform: translateY(0);
+}
+
+.gallery-caption h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.gallery-caption p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Styles pour les témoignages */
+.testimonials-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--rainbow-1) 0%, var(--rainbow-3) 100%);
+    color: white;
+}
+
+.testimonials-section .section-title h2 {
+    color: white;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.testimonial-rating {
+    color: var(--rainbow-3);
+    margin-bottom: 15px;
+}
+
+.testimonial-rating i {
+    margin-right: 2px;
+}
+
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.testimonial-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.testimonial-author h4 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.testimonial-author p {
+    margin: 5px 0 0;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+/* Styles pour la newsletter */
+.newsletter-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--secondary) 0%, #2d3436 100%);
+    color: white;
+    text-align: center;
+}
+
+.newsletter-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--rainbow-3), var(--rainbow-1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.newsletter-content p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto 40px;
+}
+
+.newsletter-form .form-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.newsletter-form input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.newsletter-form .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.newsletter-form .form-check input {
+    width: 18px;
+    height: 18px;
+}
+
+.newsletter-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.benefit {
+    text-align: center;
+}
+
+.benefit i {
+    font-size: 2.5rem;
+    color: var(--rainbow-3);
+    margin-bottom: 10px;
+}
+
+.benefit p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Styles pour le formulaire de commande complet */
+#complete-order-form {
+    padding: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#complete-order-form .form-group {
+    margin-bottom: 25px;
+}
+
+#complete-order-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+#complete-order-form label i {
+    margin-right: 8px;
+    color: var(--rainbow-1);
+    width: 20px;
+}
+
+#complete-order-form input,
+#complete-order-form textarea,
+#complete-order-form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+    background: white;
+}
+
+#complete-order-form input:focus,
+#complete-order-form textarea:focus,
+#complete-order-form select:focus {
+    outline: none;
+    border-color: var(--rainbow-1);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+#complete-order-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.order-summary {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    font-style: italic;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0 0;
+    margin-top: 15px;
+    border-top: 2px solid var(--rainbow-1);
+    font-size: 1.2rem;
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.payment-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+    text-align: center;
+}
+
+.payment-option:hover {
+    border-color: var(--rainbow-1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.payment-option.selected {
+    border-color: var(--rainbow-1);
+    background: rgba(255, 107, 53, 0.05);
+}
+
+.payment-option i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.payment-option span {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-actions {
+    margin-top: 30px;
+}
+
+.submit-order-btn {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.1rem;
+    background: linear-gradient(45deg, var(--rainbow-1), var(--rainbow-3));
+}
+
+.form-note {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Styles pour le footer */
+.main-footer {
+    background: linear-gradient(135deg, var(--secondary) 0%, #1a1a2e 100%);
+    color: white;
+    position: relative;
+    margin-top: 0;
+}
+
+.footer-wave {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.footer-wave svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 100px;
+}
+
+.footer-wave path {
+    fill: var(--secondary);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    padding: 80px 0 50px;
+}
+
+.footer-column h4 {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-3));
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.footer-description {
+    color: #bbb;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 1.2rem;
+}
+
+.social-icon:hover {
+    background: var(--rainbow-1);
+    transform: translateY(-3px);
+}
+
+.social-icon.whatsapp:hover {
+    background: #25D366;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #bbb;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a i {
+    margin-right: 10px;
+    color: var(--rainbow-1);
+    font-size: 0.8rem;
+}
+
+.footer-links a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.footer-info {
+    list-style: none;
+}
+
+.footer-info li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    color: #bbb;
+}
+
+.footer-info li i {
+    margin-right: 15px;
+    color: var(--rainbow-1);
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.payment-method {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: default;
+}
+
+.footer-app h5 {
+    margin-bottom: 15px;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.app-links {
+    display: flex;
+    gap: 10px;
+}
+
+.app-store,
+.play-store {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.app-store:hover {
+    background: #007AFF;
+}
+
+.play-store:hover {
+    background: #0F9D58;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-copyright p {
+    color: #bbb;
+    margin: 5px 0;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-legal a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-legal a:hover {
+    color: var(--rainbow-1);
+}
+
+.footer-badges {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: white;
+}
+
+.badge i {
+    color: var(--rainbow-3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .payment-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-legal {
+        justify-content: center;
+    }
+    
+    .newsletter-form .form-group {
+        flex-direction: column;
+    }
+    
+    .newsletter-form input[type="email"] {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-item {
+        height: 200px;
+    }
+    
+    .payment-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .newsletter-benefits {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header avec arc-en-ciel -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-utensils"></i> DélicesFood
+            </a>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#carousel">Plats du jour</a></li>
+                <li><a href="#menu">Menu complet</a></li>
+                <li><a href="#fonctionnement">Fonctionnement</a></li>
+                <li><a href="#admin-section" id="admin-login-link">Admin</a></li>
+                <li>
+                    <a href="#" class="cta-button open-order-modal">Commander</a>
+                    <a href="https://wa.me/226 55808964?text=Bonjour%20Myriam,%20je%20voudrais%20commander%20sur%20votre%20site" target="_blank" class="cta-button whatsapp-button">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Section Carrousel de plats -->
+    <section class="carousel-section" id="carousel">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Spécialités du Jour</h2>
+                <p>Découvrez nos plats signatures qui défilent avec leur prix</p>
+            </div>
+            
+            <div class="carousel-container" id="carousel-container">
+                <!-- Les slides seront ajoutées dynamiquement -->
+            </div>
+            
+            <div class="carousel-nav">
+                <button class="carousel-btn" id="prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn" id="next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="carousel-dots" id="carousel-dots">
+                <!-- Les dots seront ajoutés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Menu avec images -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre Carte Complète</h2>
+                <p>Chaque plat est une œuvre d'art culinaire préparée avec passion</p>
+            </div>
+            
+            <div class="menu-grid" id="menu-grid">
+                <!-- Les plats seront ajoutés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Features -->
+    <section class="features" id="fonctionnement">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pourquoi Nous Choisir</h2>
+                <p>Une expérience culinaire exceptionnelle de A à Z</p>
+            </div>
+            
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <h4><i class="fas fa-seedling"></i> Produits Frais</h4>
+                    <p>Nous sélectionnons quotidiennement des produits frais auprès de nos producteurs locaux pour garantir une qualité optimale.</p>
+                </div>
+                
+                <div class="admin-card">
+                    <h4><i class="fas fa-user-chef"></i> Chefs Experts</h4>
+                    <p>Nos chefs, formés dans les plus grandes écoles culinaires, créent des plats uniques qui éveilleront tous vos sens.</p>
+                </div>
+                
+                <div class="admin-card">
+                    <h4><i class="fas fa-shipping-fast"></i> Livraison Express</h4>
+                    <p>Votre commande est préparée et livrée en moins de 45 minutes pour préserver toute la fraîcheur et les saveurs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==================== INSÉRER ICI APRÈS LA SECTION FEATURES ==================== -->
+
+<!-- Section des photos avec descriptions -->
+<section class="gallery-section" id="gallery">
+    <div class="container">
+        <div class="section-title">
+            <h2>Notre Univers Culinaire</h2>
+            <p>Découvrez l'ambiance chaleureuse et les délices qui font notre réputation</p>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="Restaurant élégant">
+                <div class="gallery-caption">
+                    <h4>Notre Espace Élégant</h4>
+                    <p>Un cadre raffiné pour des moments d'exception</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1592861956120-e524fc739696?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="Cuisine moderne">
+                <div class="gallery-caption">
+                    <h4>Cuisine Moderne</h4>
+                    <p>Équipements dernier cri pour une cuisine parfaite</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://plus.unsplash.com/premium_photo-1686090448301-4c453ee74718?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="Service attentionné">
+                <div class="gallery-caption">
+                    <h4>Service Personnalisé</h4>
+                    <p>Une équipe dévouée à votre satisfaction</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="Ambiance chaleureuse">
+                <div class="gallery-caption">
+                    <h4>Ambiance Chaleureuse</h4>
+                    <p>L'endroit idéal pour partager un bon moment</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://plus.unsplash.com/premium_photo-1670984939096-f3cfd48c7408?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D" alt="Plats créatifs">
+                <div class="gallery-caption">
+                    <h4>Créativité Culinaire</h4>
+                    <p>Des présentations artistiques qui éveillent les sens</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1689155494424-d2337856fe3e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww" alt="Cuisine africaine">
+                <div class="gallery-caption">
+                    <h4>Saveurs Africaines</h4>
+                    <p>Authenticité et tradition dans chaque plat</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1687422808277-2334638f09fb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww" alt="Produits frais">
+                <div class="gallery-caption">
+                    <h4>Produits Locaux</h4>
+                    <p>Fraîcheur garantie grâce à nos producteurs locaux</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://media.istockphoto.com/id/1143191120/fr/photo/tajine-marocaine-traditionnelle-de-poulet-aux-fruits-secs-et-aux-%C3%A9pices.webp?a=1&b=1&s=612x612&w=0&k=20&c=wSyBLyyfQ_UakuI_cUqwsU0ClluycbJi-Ns3gSuopuE=" alt="Tajine marocain">
+                <div class="gallery-caption">
+                    <h4>Tajine Royal</h4>
+                    <p>Saveurs du Maghreb avec une touche d'élégance</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://media.istockphoto.com/id/1094435394/fr/photo/grand-choix-daliments-afrique-de-louest.webp?a=1&b=1&s=612x612&w=0&k=20&c=kAysgxCMwFllihLZawThshA7Z8LHCfWiwaza2Ywrg5Y=" alt="Variété culinaire">
+                <div class="gallery-caption">
+                    <h4>Grande Variété</h4>
+                    <p>Une sélection pour tous les goûts et envies</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1687803986235-990e21394233?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzh8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww" alt="Spécialités">
+                <div class="gallery-caption">
+                    <h4>Spécialités Maison</h4>
+                    <p>Recettes uniques créées par nos chefs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Témoignages clients -->
+<section class="testimonials-section" id="testimonials">
+    <div class="container">
+        <div class="section-title">
+            <h2>Ils Nous Ont Fait Confiance</h2>
+            <p>Découvrez les retours de nos clients satisfaits</p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"La meilleure expérience culinaire de Dakar ! Les plats sont divins et le service impeccable."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client">
+                    <div>
+                        <h4>Amadou Diop</h4>
+                        <p>Client régulier depuis 2 ans</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="testimonial-text">"Je commande chaque semaine pour mes réunions d'affaires. Toujours parfait !"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client">
+                    <div>
+                        <h4>Fatou Ndiaye</h4>
+                        <p>Entrepreneure</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"La livraison est toujours à l'heure et les plats arrivent chauds. Service 5 étoiles !"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Client">
+                    <div>
+                        <h4>Jean Koffi</h4>
+                        <p>Client premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Newsletter -->
+<section class="newsletter-section" id="newsletter">
+    <div class="container">
+        <div class="newsletter-content">
+            <h2>Restez Informés de Nos Nouvelles Offres</h2>
+            <p>Abonnez-vous à notre newsletter et recevez en exclusivité nos promotions, nouveaux plats et événements spéciaux.</p>
+            
+            <form class="newsletter-form" id="newsletter-form">
+                <div class="form-group">
+                    <input type="email" placeholder="Votre adresse email" required>
+                    <button type="submit" class="cta-button">
+                        <i class="fas fa-paper-plane"></i> S'abonner
+                    </button>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="newsletter-consent" required>
+                    <label for="newsletter-consent">J'accepte de recevoir les offres promotionnelles</label>
+                </div>
+            </form>
+            
+            <div class="newsletter-benefits">
+                <div class="benefit">
+                    <i class="fas fa-gift"></i>
+                    <p>Offres exclusives</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-utensils"></i>
+                    <p>Nouveaux plats en avant-première</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-percent"></i>
+                    <p>Réduction de bienvenue -10%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Overlay pour images en plein écran -->
+    <div class="fullscreen-overlay" id="fullscreen-overlay">
+        <button class="close-fullscreen" id="close-fullscreen">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="fullscreen-container">
+            <img class="fullscreen-image" id="fullscreen-image" src="" alt="">
+            <div class="fullscreen-description" id="fullscreen-description"></div>
+        </div>
+    </div>
+
+    <!-- Modal de commande -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Finaliser votre commande</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulaire de commande -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Panier flottant -->
+    <div class="cart-floating" id="cart-floating">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-badge" id="cart-count">0</div>
+    </div>
+    <!-- ==================== INSÉRER ICI APRÈS LA SECTION NEWSLETTER ==================== -->
+
+<!-- Footer détaillé -->
+<footer class="main-footer" id="contact">
+    <div class="footer-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-logo">
+                    <i class="fas fa-utensils"></i> Les Délices de chez Myriam
+                </h3>
+                <p class="footer-description">
+                    Depuis 2015, nous offrons une expérience culinaire exceptionnelle avec des produits frais, des recettes innovantes et un service personnalisé.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://wa.me/226 55808964" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Navigation rapide</h4>
+                <ul class="footer-links">
+                    <li><a href="#carousel"><i class="fas fa-chevron-right"></i> Plats du jour</a></li>
+                    <li><a href="#menu"><i class="fas fa-chevron-right"></i> Notre menu</a></li>
+                    <li><a href="#gallery"><i class="fas fa-chevron-right"></i> Galerie</a></li>
+                    <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Témoignages</a></li>
+                    <li><a href="#newsletter"><i class="fas fa-chevron-right"></i> Newsletter</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Informations pratiques</h4>
+                <ul class="footer-info">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Plateau, Rue 12, Dakar, Sénégal</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>+226 55808964</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>justehien71@gmail.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Lun-Dim: 10h-20h</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-truck"></i>
+                        <span>Livraison 7j/7</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Moyens de paiement</h4>
+                <div class="payment-methods">
+                    <div class="payment-method" title="Wave">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <div class="payment-method" title="Orange Money">
+                        <i class="fas fa-mobile-alt" style="color: #FF6600;"></i>
+                    </div>
+                    <div class="payment-method" title="Telecel">
+                        <i class="fas fa-sim-card" style="color: #00A859;"></i>
+                    </div>
+                    <div class="payment-method" title="Moov Money">
+                        <i class="fas fa-sim-card" style="color: #E20074;"></i>
+                    </div>
+                    <div class="payment-method" title="Carte bancaire">
+                        <i class="fas fa-credit-card" style="color: #1A1A2E;"></i>
+                    </div>
+                </div>
+                
+                <div class="footer-app">
+                    <h5>Téléchargez notre app</h5>
+                    <div class="app-links">
+                        <a href="#" class="app-store">
+                            <i class="fab fa-app-store"></i>
+                            <span>App Store</span>
+                        </a>
+                        <a href="#" class="play-store">
+                            <i class="fab fa-google-play"></i>
+                            <span>Play Store</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                <p>&copy; 2024 Les Délices de chez Myriam. Tous droits réservés.</p>
+                <p class="footer-legal">
+                    <a href="#">Mentions légales</a> | 
+                    <a href="#">Politique de confidentialité</a> | 
+                    <a href="#">Conditions générales</a>
+                </p>
+            </div>
+            
+            <div class="footer-badges">
+                <span class="badge"><i class="fas fa-check-circle"></i> Certifié Hygiène</span>
+                <span class="badge"><i class="fas fa-award"></i> Meilleur Restaurant 2023</span>
+                <span class="badge"><i class="fas fa-leaf"></i> Produits Locaux</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Section Admin -->
+    <section class="admin-section" id="admin-section">
+        <div class="container">
+            <div class="admin-login" id="admin-login">
+                <h2 style="text-align: center; margin-bottom: 30px; background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-6)); -webkit-background-clip: text; background-clip: text; color: transparent;">Connexion Administrateur</h2>
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label for="admin-username">Nom d'utilisateur</label>
+                        <input type="text" id="admin-username" class="form-control" required placeholder="Entrez votre nom d'utilisateur">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="admin-password">Mot de passe</label>
+                        <input type="password" id="admin-password" class="form-control" required placeholder="Entrez votre mot de passe">
+                    </div>
+                    
+                    <button type="submit" class="cta-button" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
+                    
+                    <p style="text-align: center; margin-top: 15px; color: #666; font-size: 0.9rem;">
+                        Identifiants par défaut: admin / admin123
+                    </p>
+                </form>
+            </div>
+            
+            <div class="admin-dashboard" id="admin-dashboard">
+                <div class="admin-header">
+                    <h2><i class="fas fa-user-shield"></i> Tableau de Bord Administrateur</h2>
+                    <button id="admin-logout" class="cta-button" style="padding: 10px 25px;">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
+                </div>
+                
+                <div class="admin-nav">
+                    <ul>
+                        <li><a href="#admin-dashboard" class="admin-nav-link active"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+                        <li><a href="#admin-users" class="admin-nav-link"><i class="fas fa-users"></i> Utilisateurs</a></li>
+                        <li><a href="#admin-menu" class="admin-nav-link"><i class="fas fa-utensils"></i> Gestion du menu</a></li>
+                        <li><a href="#admin-orders" class="admin-nav-link"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+                        <li><a href="#admin-subscribers" class="admin-nav-link"><i class="fas fa-envelope"></i> Abonnés</a></li>
+                        <li><a href="#admin-settings" class="admin-nav-link"><i class="fas fa-cog"></i> Paramètres</a></li>
+                        <li><a href="#admin-logs" class="admin-nav-link"><i class="fas fa-history"></i> Journal</a></li>
+                    </ul>
+                </div>
+                
+                <div class="admin-content">
+                    <!-- Tableau de bord -->
+                    <div id="admin-dashboard-tab" class="admin-tab active">
+                        <h3>Tableau de Bord</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-users fa-2x"></i>
+                                <div class="stat-number" id="total-users">0</div>
+                                <div class="stat-label">Utilisateurs totaux</div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-user-clock fa-2x"></i>
+                                <div class="stat-number" id="online-users">0</div>
+                                <div class="stat-label">En ligne maintenant</div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-shopping-cart fa-2x"></i>
+                                <div class="stat-number" id="total-orders">0</div>
+                                <div class="stat-label">Commandes aujourd'hui</div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-envelope fa-2x"></i>
+                                <div class="stat-number" id="total-subscribers">0</div>
+                                <div class="stat-label">Abonnés newsletter</div>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <h4><i class="fas fa-chart-line"></i> Statistiques rapides</h4>
+                                <div id="quick-stats">
+                                    <!-- Statistiques seront ajoutées ici -->
+                                </div>
+                            </div>
+                            
+                            <div class="admin-card">
+                                <h4><i class="fas fa-bell"></i> Notifications récentes</h4>
+                                <div id="recent-notifications">
+                                    <!-- Notifications seront ajoutées ici -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gestion des utilisateurs -->
+                    <div id="admin-users" class="admin-tab">
+                        <h3>Gestion des Utilisateurs</h3>
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <h4><i class="fas fa-user-check"></i> Utilisateurs connectés</h4>
+                                <div id="connected-users-list">
+                                    <!-- Liste des utilisateurs connectés -->
+                                </div>
+                            </div>
+                            
+                            <div class="admin-card">
+                                <h4><i class="fas fa-user-clock"></i> Connexions récentes</h4>
+                                <div id="recent-logins">
+                                    <!-- Liste des connexions récentes -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Gestion du menu -->
+                    <div id="admin-menu" class="admin-tab">
+                        <h3>Gestion du Menu</h3>
+                        <button id="add-dish-btn" class="cta-button" style="margin-bottom: 20px;">
+                            <i class="fas fa-plus"></i> Ajouter un nouveau plat
+                        </button>
+                        <div id="menu-management">
+                            <!-- Gestion du menu sera ajoutée ici -->
+                        </div>
+                    </div>
+                    
+                   
+                    
+                    <!-- Gestion des abonnés -->
+                    <div id="admin-subscribers" class="admin-tab">
+                        <h3>Gestion des Abonnés</h3>
+                        <div id="subscribers-management">
+                            <!-- Gestion des abonnés sera ajoutée ici -->
+                        </div>
+                    </div>
+                    
+                    <!-- Paramètres -->
+                    <div id="admin-settings" class="admin-tab">
+                        <h3>Paramètres du Site</h3>
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <h4><i class="fas fa-key"></i> Modifier le mot de passe</h4>
+                                <form id="change-password-form">
+                                    <input type="password" placeholder="Ancien mot de passe" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                                    <input type="password" placeholder="Nouveau mot de passe" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                                    <input type="password" placeholder="Confirmer le nouveau mot de passe" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                                    <button type="submit" class="cta-button" style="width: 100%;">Modifier le mot de passe</button>
+                                </form>
+                            </div>
+                            
+                            <div class="admin-card">
+                                <h4><i class="fas fa-paint-brush"></i> Apparence du site</h4>
+                                <!-- Options de design seront ajoutées ici -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Journal d'activités -->
+                    <div id="admin-logs" class="admin-tab">
+                        <h3>Journal d'Activités</h3>
+                        <div id="activity-log">
+                            <!-- Journal d'activités sera ajouté ici -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Données des plats avec descriptions attractives
+        const dishes = [
+            {
+                id: 1,
+                name: "Quiche au camembert, brocolis et jambon",
+                image: "https://media.istockphoto.com/id/465671061/fr/photo/brocoli-une-quiche-au-jambon-et-au-fromage.webp?a=1&b=1&s=612x612&w=0&k=20&c=zreZlivfahB-ps-irbAqVBFKolGtvBknbcFBimowneA=",
+                price: "5 000 FCFA",
+                description: "Une quiche gourmande où le camembert fondant rencontre le brocoli croquant et le jambon savoureux. Le tout dans un appareil crémeux sur une pâte brisée dorée à perfection. Un mariage de saveurs qui réchauffe le cœur !",
+                category: "Quiches"
+            },
+            {
+                id: 2,
+                name: "Poisson Braisé Capitaine",
+                image: "https://images.unsplash.com/photo-1765584830370-085bddbf863f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODh8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww",
+                price: "6 800 FCFA",
+                description: "Capitaine frais braisé aux herbes aromatiques, servi avec attiéké léger et une sauce piquante maison. Un plat traditionnel revisité avec une touche d'élégance.",
+                category: "Poissons"
+            },
+            {
+                id: 3,
+                name: "Pizza Royale",
+                image: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGl6emF8ZW58MHx8MHx8fDA%3D",
+                price: "7 200 FCFA",
+                description: "Pizza fine et croustillante garnie de mozzarella di bufala, jambon de Parme et roquette fraîche. Un voyage gustatif jusqu'en Italie !",
+                category: "Pizzas"
+            },
+            {
+                id: 4,
+                name: "Poulet Yassa Traditionnel",
+                image: "https://plus.unsplash.com/premium_photo-1694790149322-e8f8957e01c5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTB8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww",
+                price: "5 500 FCFA",
+                description: "Poulet mariné au citron et oignons, cuit lentement pour un goût authentique. Servi avec du riz blanc parfumé. Un classique sénégalais !",
+                category: "Plats traditionnels"
+            },
+            {
+                id: 5,
+                name: "Mafé aux trois viandes",
+                image: "https://images.unsplash.com/photo-1763048443535-1243379234e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTA3fHxhZnJpY2FuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D",
+                price: "6 500 FCFA",
+                description: "Sauce arachide onctueuse avec bœuf, agneau et poulet, accompagnée de légumes de saison. Un festin de saveurs !",
+                category: "Plats traditionnels"
+            },
+            {
+                id: 6,
+                name: "Thiébou Dieune",
+                image: "https://images.unsplash.com/photo-1570995625475-4d1207fb70ef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww",
+                price: "5 800 FCFA",
+                description: "Le plat national sénégalais : riz au poisson et légumes, préparé avec amour selon la recette traditionnelle.",
+                category: "Plats traditionnels"
+            },
+            {
+                id: 7,
+                name: "Brochettes de crevettes",
+                image: "https://images.unsplash.com/photo-1659571346189-9d33f2f49760?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGFmcmljYW4lMjBmb29kfGVufDB8fDB8fHww",
+                price: "6 200 FCFA",
+                description: "Crevettes géantes marinées aux épices, grillées au charbon de bois. Servies avec une sauce cocktail maison.",
+                category: "Fruits de mer"
+            },
+            {
+                id: 8,
+                name: "Salade César gourmande",
+                image: "https://images.unsplash.com/photo-1666181551815-b9adecb24e46?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIzfHxhZnJpY2FuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D",
+                price: "4 500 FCFA",
+                description: "Laitue romaine fraîche, croûtons dorés, parmesan et poulet grillé, nappés de notre sauce césar crémeuse.",
+                category: "Salades"
+            }
+        ];
+
+        // Variables globales
+        let currentSlide = 0;
+        let cart = [];
+        let isAdminLoggedIn = false;
+        let users = [
+            { id: 1, name: "Admin", email: "admin@delices.com", lastLogin: new Date(), status: "online" },
+            { id: 2, name: "Myriam", email: "myriam55@gmail.com", lastLogin: new Date(), status: "online" },
+            { id: 3, name: "Client Premium", email: "client@example.com", lastLogin: new Date(Date.now() - 3600000), status: "offline" }
+        ];
+        let orders = [];
+        let subscribers = [];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel();
+            initMenu();
+            initAdminPanel();
+            setupEventListeners();
+            loadData();
+        });
+
+        // Initialisation du carrousel
+        function initCarousel() {
+            const container = document.getElementById('carousel-container');
+            const dotsContainer = document.getElementById('carousel-dots');
+            
+            dishes.forEach((dish, index) => {
+                // Créer la slide
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                slide.innerHTML = `
+                    <img src="${dish.image}" alt="${dish.name}">
+                    <div class="carousel-content">
+                        <h3>${dish.name}</h3>
+                        <div class="carousel-price">${dish.price}</div>
+                        <p class="carousel-description">${dish.description}</p>
+                        <button class="cta-button add-to-carousel-cart" data-id="${dish.id}">
+                            <i class="fas fa-plus"></i> Ajouter au panier
+                        </button>
+                    </div>
+                `;
+                container.appendChild(slide);
+                
+                // Créer le dot
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                dot.dataset.index = index;
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Activer la première slide
+            document.querySelectorAll('.carousel-slide')[0].classList.add('active');
+            document.querySelectorAll('.carousel-dot')[0].classList.add('active');
+            
+            // Démarrer le carrousel automatique
+            startCarousel();
+        }
+
+        // Initialisation du menu
+        function initMenu() {
+            const menuGrid = document.getElementById('menu-grid');
+            
+            dishes.forEach(dish => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.dataset.id = dish.id;
+                menuItem.innerHTML = `
+                    <img src="${dish.image}" alt="${dish.name}" class="menu-image">
+                    <div class="menu-item-content">
+                        <h3>${dish.name}</h3>
+                        <p class="menu-description">${dish.description}</p>
+                        <div class="price">
+                            <span>${dish.price}</span>
+                            <button class="add-to-cart" data-id="${dish.id}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                menuGrid.appendChild(menuItem);
+            });
+        }
+
+        // Initialisation du panel admin
+        function initAdminPanel() {
+            // Initialiser les statistiques
+            updateAdminStats();
+            
+            // Initialiser les utilisateurs
+            updateUsersList();
+            
+            // Initialiser les abonnés
+            updateSubscribersList();
+        }
+
+        // Configuration des événements
+        function setupEventListeners() {
+            // Navigation du carrousel
+            document.getElementById('prev-btn').addEventListener('click', showPrevSlide);
+            document.getElementById('next-btn').addEventListener('click', showNextSlide);
+            
+            // Dots du carrousel
+            document.querySelectorAll('.carousel-dot').forEach(dot => {
+                dot.addEventListener('click', function() {
+                    goToSlide(parseInt(this.dataset.index));
+                });
+            });
+            
+            // Ajout au panier
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.add-to-cart') || e.target.closest('.add-to-carousel-cart')) {
+                    const button = e.target.closest('.add-to-cart') || e.target.closest('.add-to-carousel-cart');
+                    const dishId = parseInt(button.dataset.id);
+                    addToCart(dishId);
+                }
+            });
+            
+            // Images en plein écran
+            document.querySelectorAll('.menu-item img').forEach(img => {
+                img.addEventListener('click', function() {
+                    showFullscreenImage(this.src, this.alt);
+                });
+            });
+            
+            // Fermer le mode plein écran
+            document.getElementById('close-fullscreen').addEventListener('click', hideFullscreenImage);
+            
+            // Connexion admin
+            document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                loginAdmin();
+            });
+            
+            // Déconnexion admin
+            document.getElementById('admin-logout').addEventListener('click', logoutAdmin);
+            
+            // Navigation admin
+            document.querySelectorAll('.admin-nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAdminTab(this.getAttribute('href').substring(1));
+                });
+            });
+            
+            // Changer de mot de passe
+            document.getElementById('change-password-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                changePassword();
+            });
+            
+            // Ajouter un plat
+            document.getElementById('add-dish-btn').addEventListener('click', showAddDishForm);
+            
+            // Menu mobile
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('active');
+            });
+            
+            // Lien admin
+            document.getElementById('admin-login-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                showAdminSection();
+            });
+        }
+
+        // Carrousel automatique
+        function startCarousel() {
+            setInterval(() => {
+                showNextSlide();
+            }, 5000);
+        }
+
+        function showNextSlide() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function showPrevSlide() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Gestion du panier
+        function addToCart(dishId) {
+            const dish = dishes.find(d => d.id === dishId);
+            if (!dish) return;
+            
+            const existingItem = cart.find(item => item.id === dishId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    ...dish,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            
+            // Animation de confirmation
+            const button = document.querySelector(`[data-id="${dishId}"]`);
+            if (button) {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                button.style.background = 'linear-gradient(45deg, var(--rainbow-4), var(--rainbow-2))';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.background = '';
+                }, 1000);
+            }
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            
+            const cartFloating = document.getElementById('cart-floating');
+            if (totalItems > 0) {
+                cartFloating.style.display = 'flex';
+            } else {
+                cartFloating.style.display = 'none';
+            }
+        }
+
+        // Images en plein écran
+        function showFullscreenImage(src, alt) {
+            const overlay = document.getElementById('fullscreen-overlay');
+            const image = document.getElementById('fullscreen-image');
+            const description = document.getElementById('fullscreen-description');
+            
+            const dish = dishes.find(d => d.name === alt);
+            
+            image.src = src;
+            image.alt = alt;
+            
+            if (dish) {
+                description.innerHTML = `
+                    <h3>${dish.name}</h3>
+                    <p>${dish.description}</p>
+                    <div style="margin-top: 10px; font-weight: bold; color: var(--rainbow-3);">
+                        ${dish.price}
+                    </div>
+                `;
+            } else {
+                description.innerHTML = `<h3>${alt}</h3>`;
+            }
+            
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideFullscreenImage() {
+            document.getElementById('fullscreen-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Administration
+        function showAdminSection() {
+            document.getElementById('admin-section').style.display = 'block';
+            document.querySelector('header').style.display = 'none';
+            document.querySelector('.carousel-section').style.display = 'none';
+            document.querySelector('.menu').style.display = 'none';
+            document.querySelector('.features').style.display = 'none';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function loginAdmin() {
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                isAdminLoggedIn = true;
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                
+                // Enregistrer la connexion
+                users[0].lastLogin = new Date();
+                users[0].status = 'online';
+                updateUsersList();
+                updateAdminStats();
+                
+                // Ajouter au journal
+                addToActivityLog('Connexion administrateur réussie');
+            } else {
+                alert('Identifiants incorrects');
+                addToActivityLog('Tentative de connexion échouée');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('admin-login').style.display = 'block';
+            document.getElementById('admin-login-form').reset();
+            
+            // Réafficher le site
+            document.getElementById('admin-section').style.display = 'none';
+            document.querySelector('header').style.display = 'block';
+            document.querySelector('.carousel-section').style.display = 'block';
+            document.querySelector('.menu').style.display = 'block';
+            document.querySelector('.features').style.display = 'block';
+            
+            // Mettre à jour le statut
+            users[0].status = 'offline';
+            addToActivityLog('Déconnexion administrateur');
+        }
+
+        function showAdminTab(tabId) {
+            // Mettre à jour la navigation
+            document.querySelectorAll('.admin-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[href="#${tabId}"]`).classList.add('active');
+            
+            // Afficher le contenu
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            // Charger les données si nécessaire
+            if (tabId === 'admin-orders') {
+                loadOrders();
+            } else if (tabId === 'admin-subscribers') {
+                updateSubscribersList();
+            } else if (tabId === 'admin-logs') {
+                loadActivityLog();
+            }
+        }
+
+        function updateAdminStats() {
+            // Statistiques utilisateurs
+            document.getElementById('total-users').textContent = users.length;
+            document.getElementById('online-users').textContent = users.filter(u => u.status === 'online').length;
+            
+            // Statistiques commandes
+            const today = new Date().toDateString();
+            const todayOrders = orders.filter(o => new Date(o.date).toDateString() === today);
+            document.getElementById('total-orders').textContent = todayOrders.length;
+            
+            // Statistiques abonnés
+            document.getElementById('total-subscribers').textContent = subscribers.length;
+        }
+
+        function updateUsersList() {
+            const connectedUsersList = document.getElementById('connected-users-list');
+            const recentLogins = document.getElementById('recent-logins');
+            
+            // Utilisateurs connectés
+            const connectedUsers = users.filter(u => u.status === 'online');
+            connectedUsersList.innerHTML = connectedUsers.map(user => `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 10px;">
+                    <div>
+                        <strong>${user.name}</strong><br>
+                        <small>${user.email}</small>
+                    </div>
+                    <span class="status-badge status-online">En ligne</span>
+                </div>
+            `).join('');
+            
+            // Connexions récentes
+            recentLogins.innerHTML = users.sort((a, b) => new Date(b.lastLogin) - new Date(a.lastLogin)).map(user => `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 10px;">
+                    <div>
+                        <strong>${user.name}</strong><br>
+                        <small>Dernière connexion: ${formatDate(user.lastLogin)}</small>
+                    </div>
+                    <span class="status-badge ${user.status === 'online' ? 'status-online' : 'status-offline'}">
+                        ${user.status === 'online' ? 'En ligne' : 'Hors ligne'}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function updateSubscribersList() {
+            const subscribersList = document.getElementById('subscribers-management');
+            subscribersList.innerHTML = `
+                <div class="admin-card">
+                    <h4><i class="fas fa-list"></i> Liste des abonnés (${subscribers.length})</h4>
+                    ${subscribers.length > 0 ? subscribers.map(sub => `
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 10px;">
+                            <div>
+                                <strong>${sub.email}</strong><br>
+                                <small>Inscrit le: ${formatDate(sub.date)}</small>
+                            </div>
+                            <button class="cta-button" style="padding: 5px 10px;" onclick="removeSubscriber('${sub.email}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `).join('') : '<p>Aucun abonné pour le moment.</p>'}
+                </div>
+                <div class="admin-card">
+                    <h4><i class="fas fa-chart-bar"></i> Statistiques des abonnés</h4>
+                    <div style="margin-top: 20px;">
+                        <p>Total abonnés: <strong>${subscribers.length}</strong></p>
+                        <p>Nouveaux cette semaine: <strong>${getNewSubscribersThisWeek()}</strong></p>
+                        <p>Taux de croissance: <strong>${calculateGrowthRate()}%</strong></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showAddDishForm() {
+            const menuManagement = document.getElementById('menu-management');
+            menuManagement.innerHTML = `
+                <div class="admin-card">
+                    <h4><i class="fas fa-plus-circle"></i> Ajouter un nouveau plat</h4>
+                    <form id="new-dish-form" style="margin-top: 20px;">
+                        <input type="text" placeholder="Nom du plat" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                        <textarea placeholder="Description du plat" required style="width: 100%; margin-bottom: 10px; padding: 10px; height: 100px;"></textarea>
+                        <input type="text" placeholder="Prix (ex: 5 000 FCFA)" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                        <input type="text" placeholder="URL de l'image" required style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                        <select style="width: 100%; margin-bottom: 10px; padding: 10px;">
+                            <option value="Quiches">Quiches</option>
+                            <option value="Poissons">Poissons</option>
+                            <option value="Pizzas">Pizzas</option>
+                            <option value="Plats traditionnels">Plats traditionnels</option>
+                            <option value="Fruits de mer">Fruits de mer</option>
+                            <option value="Salades">Salades</option>
+                        </select>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="cta-button" style="flex: 1;">Ajouter le plat</button>
+                            <button type="button" class="cta-button" style="flex: 1; background: linear-gradient(45deg, var(--rainbow-6), var(--rainbow-1));" onclick="showDishList()">Voir la liste</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.getElementById('new-dish-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewDish(this);
+            });
+        }
+
+        function showDishList() {
+            const menuManagement = document.getElementById('menu-management');
+            menuManagement.innerHTML = `
+                <div class="admin-card">
+                    <h4><i class="fas fa-utensils"></i> Gestion des plats (${dishes.length})</h4>
+                    <div style="margin-top: 20px;">
+                        ${dishes.map(dish => `
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 10px; margin-bottom: 10px;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <img src="${dish.image}" alt="${dish.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                                    <div>
+                                        <strong>${dish.name}</strong><br>
+                                        <small>${dish.category} - ${dish.price}</small>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 5px;">
+                                    <button class="cta-button" style="padding: 5px 10px;" onclick="editDish(${dish.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="cta-button" style="padding: 5px 10px; background: linear-gradient(45deg, var(--rainbow-6), var(--rainbow-1));" onclick="deleteDish(${dish.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function addNewDish(form) {
+            const formData = new FormData(form);
+            const newDish = {
+                id: dishes.length + 1,
+                name: form.querySelector('input[type="text"]').value,
+                description: form.querySelector('textarea').value,
+                price: form.querySelectorAll('input[type="text"]')[2].value,
+                image: form.querySelectorAll('input[type="text"]')[3].value,
+                category: form.querySelector('select').value
+            };
+            
+            dishes.push(newDish);
+            
+            // Mettre à jour l'affichage
+            const menuGrid = document.getElementById('menu-grid');
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item';
+            menuItem.dataset.id = newDish.id;
+            menuItem.innerHTML = `
+                <img src="${newDish.image}" alt="${newDish.name}" class="menu-image">
+                <div class="menu-item-content">
+                    <h3>${newDish.name}</h3>
+                    <p class="menu-description">${newDish.description}</p>
+                    <div class="price">
+                        <span>${newDish.price}</span>
+                        <button class="add-to-cart" data-id="${newDish.id}">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            menuGrid.appendChild(menuItem);
+            
+            // Ajouter au carrousel
+            updateCarouselWithNewDish(newDish);
+            
+            // Ajouter au journal
+            addToActivityLog(`Nouveau plat ajouté: ${newDish.name}`);
+            
+            // Revenir à la liste
+            showDishList();
+        }
+
+        function updateCarouselWithNewDish(dish) {
+            const container = document.getElementById('carousel-container');
+            const dotsContainer = document.getElementById('carousel-dots');
+            
+            // Ajouter la nouvelle slide
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.innerHTML = `
+                <img src="${dish.image}" alt="${dish.name}">
+                <div class="carousel-content">
+                    <h3>${dish.name}</h3>
+                    <div class="carousel-price">${dish.price}</div>
+                    <p class="carousel-description">${dish.description}</p>
+                    <button class="cta-button add-to-carousel-cart" data-id="${dish.id}">
+                        <i class="fas fa-plus"></i> Ajouter au panier
+                    </button>
+                </div>
+            `;
+            container.appendChild(slide);
+            
+            // Ajouter un nouveau dot
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot';
+            dot.dataset.index = dishes.length - 1;
+            dot.addEventListener('click', function() {
+                goToSlide(parseInt(this.dataset.index));
+            });
+            dotsContainer.appendChild(dot);
+        }
+
+        function editDish(dishId) {
+            const dish = dishes.find(d => d.id === dishId);
+            if (!dish) return;
+            
+            showAddDishForm();
+            
+            const form = document.getElementById('new-dish-form');
+            form.querySelector('input[type="text"]').value = dish.name;
+            form.querySelector('textarea').value = dish.description;
+            form.querySelectorAll('input[type="text"]')[2].value = dish.price;
+            form.querySelectorAll('input[type="text"]')[3].value = dish.image;
+            form.querySelector('select').value = dish.category;
+            
+            // Changer le bouton submit
+            form.querySelector('button[type="submit"]').textContent = 'Modifier le plat';
+            form.querySelector('button[type="submit"]').onclick = function(e) {
+                e.preventDefault();
+                updateDish(dishId, form);
+            };
+        }
+
+        function updateDish(dishId, form) {
+            const dishIndex = dishes.findIndex(d => d.id === dishId);
+            if (dishIndex === -1) return;
+            
+            dishes[dishIndex] = {
+                ...dishes[dishIndex],
+                name: form.querySelector('input[type="text"]').value,
+                description: form.querySelector('textarea').value,
+                price: form.querySelectorAll('input[type="text"]')[2].value,
+                image: form.querySelectorAll('input[type="text"]')[3].value,
+                category: form.querySelector('select').value
+            };
+            
+            // Mettre à jour l'affichage
+            updateMenuDisplay();
+            updateCarouselDisplay();
+            
+            addToActivityLog(`Plat modifié: ${dishes[dishIndex].name}`);
+            showDishList();
+        }
+
+        function deleteDish(dishId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce plat ?')) {
+                const dishIndex = dishes.findIndex(d => d.id === dishId);
+                if (dishIndex === -1) return;
+                
+                const dishName = dishes[dishIndex].name;
+                dishes.splice(dishIndex, 1);
+                
+                // Mettre à jour l'affichage
+                updateMenuDisplay();
+                updateCarouselDisplay();
+                
+                addToActivityLog(`Plat supprimé: ${dishName}`);
+                showDishList();
+            }
+        }
+
+        function updateMenuDisplay() {
+            const menuGrid = document.getElementById('menu-grid');
+            menuGrid.innerHTML = '';
+            initMenu();
+        }
+
+        function updateCarouselDisplay() {
+            const container = document.getElementById('carousel-container');
+            const dotsContainer = document.getElementById('carousel-dots');
+            
+            container.innerHTML = '';
+            dotsContainer.innerHTML = '';
+            
+            dishes.forEach((dish, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                slide.innerHTML = `
+                    <img src="${dish.image}" alt="${dish.name}">
+                    <div class="carousel-content">
+                        <h3>${dish.name}</h3>
+                        <div class="carousel-price">${dish.price}</div>
+                        <p class="carousel-description">${dish.description}</p>
+                        <button class="cta-button add-to-carousel-cart" data-id="${dish.id}">
+                            <i class="fas fa-plus"></i> Ajouter au panier
+                        </button>
+                    </div>
+                `;
+                container.appendChild(slide);
+                
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                dot.dataset.index = index;
+                dot.addEventListener('click', function() {
+                    goToSlide(parseInt(this.dataset.index));
+                });
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Réinitialiser le carrousel
+            currentSlide = 0;
+            document.querySelectorAll('.carousel-slide')[0].classList.add('active');
+            document.querySelectorAll('.carousel-dot')[0].classList.add('active');
+        }
+
+        function changePassword() {
+            alert('Mot de passe modifié avec succès !');
+            addToActivityLog('Mot de passe administrateur modifié');
+        }
+
+        function loadOrders() {
+            const ordersManagement = document.getElementById('orders-management');
+            ordersManagement.innerHTML = `
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <h4><i class="fas fa-shopping-cart"></i> Commandes récentes</h4>
+                        ${orders.length > 0 ? orders.map(order => `
+                            <div style="margin-bottom: 15px; padding: 15px; background: rgba(0,0,0,0.05); border-radius: 10px;">
+                                <strong>Commande #${order.id}</strong><br>
+                                <small>Client: ${order.customer}</small><br>
+                                <small>Total: ${order.total}</small><br>
+                                <small>Date: ${formatDate(order.date)}</small>
+                                <div style="margin-top: 10px;">
+                                    <span class="status-badge status-${order.status}">
+                                        ${order.status === 'new' ? 'Nouvelle' : 
+                                          order.status === 'processing' ? 'En cours' : 
+                                          order.status === 'delivered' ? 'Livrée' : 'Annulée'}
+                                    </span>
+                                </div>
+                            </div>
+                        `).join('') : '<p>Aucune commande pour le moment.</p>'}
+                    </div>
+                    
+                    <div class="admin-card">
+                        <h4><i class="fas fa-chart-pie"></i> Statistiques des commandes</h4>
+                        <div style="margin-top: 20px;">
+                            <p>Total commandes: <strong>${orders.length}</strong></p>
+                            <p>Commandes aujourd'hui: <strong>${getTodayOrders().length}</strong></p>
+                            <p>Chiffre d'affaires total: <strong>${calculateTotalRevenue()} FCFA</strong></p>
+                            <p>Panier moyen: <strong>${calculateAverageOrderValue()} FCFA</strong></p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addToActivityLog(message) {
+            const log = {
+                id: Date.now(),
+                message: message,
+                date: new Date(),
+                user: 'Administrateur'
+            };
+            
+            // Sauvegarder dans localStorage
+            let logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
+            logs.unshift(log);
+            localStorage.setItem('activityLogs', JSON.stringify(logs.slice(0, 100))); // Garder les 100 dernières
+        }
+
+        function loadActivityLog() {
+            const logs = JSON.parse(localStorage.getItem('activityLogs') || '[]');
+            const activityLog = document.getElementById('activity-log');
+            
+            activityLog.innerHTML = `
+                <div class="admin-card">
+                    <h4><i class="fas fa-history"></i> Journal d'activités (${logs.length})</h4>
+                    <div style="margin-top: 20px; max-height: 400px; overflow-y: auto;">
+                        ${logs.length > 0 ? logs.map(log => `
+                            <div style="padding: 10px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <small style="color: #666;">${formatDateTime(log.date)}</small><br>
+                                <strong>${log.user}</strong>: ${log.message}
+                            </div>
+                        `).join('') : '<p>Aucune activité enregistrée.</p>'}
+                    </div>
+                    ${logs.length > 0 ? `
+                        <button class="cta-button" style="margin-top: 20px; width: 100%;" onclick="clearActivityLog()">
+                            <i class="fas fa-trash"></i> Vider le journal
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function clearActivityLog() {
+            if (confirm('Voulez-vous vraiment vider le journal d\'activités ?')) {
+                localStorage.removeItem('activityLogs');
+                loadActivityLog();
+                addToActivityLog('Journal d\'activités vidé');
+            }
+        }
+
+        function removeSubscriber(email) {
+            subscribers = subscribers.filter(sub => sub.email !== email);
+            updateSubscribersList();
+            updateAdminStats();
+            addToActivityLog(`Abonné supprimé: ${email}`);
+        }
+
+        function getNewSubscribersThisWeek() {
+            const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            return subscribers.filter(sub => new Date(sub.date) > oneWeekAgo).length;
+        }
+
+        function calculateGrowthRate() {
+            if (subscribers.length < 2) return 0;
+            const lastWeekCount = subscribers.length - getNewSubscribersThisWeek();
+            if (lastWeekCount === 0) return 100;
+            return Math.round((getNewSubscribersThisWeek() / lastWeekCount) * 100);
+        }
+
+        function getTodayOrders() {
+            const today = new Date().toDateString();
+            return orders.filter(o => new Date(o.date).toDateString() === today);
+        }
+
+        function calculateTotalRevenue() {
+            return orders.reduce((total, order) => {
+                const amount = parseInt(order.total.replace(/[^0-9]/g, ''));
+                return total + (isNaN(amount) ? 0 : amount);
+            }, 0).toLocaleString();
+        }
+
+        function calculateAverageOrderValue() {
+            if (orders.length === 0) return 0;
+            const total = orders.reduce((sum, order) => {
+                const amount = parseInt(order.total.replace(/[^0-9]/g, ''));
+                return sum + (isNaN(amount) ? 0 : amount);
+            }, 0);
+            return Math.round(total / orders.length).toLocaleString();
+        }
+
+        function formatDate(date) {
+            return new Date(date).toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatDateTime(date) {
+            return new Date(date).toLocaleString('fr-FR');
+        }
+
+        function loadData() {
+            // Charger les données depuis localStorage
+            const savedOrders = localStorage.getItem('delices-orders');
+            if (savedOrders) {
+                orders = JSON.parse(savedOrders);
+            }
+            
+            const savedSubscribers = localStorage.getItem('delices-subscribers');
+            if (savedSubscribers) {
+                subscribers = JSON.parse(savedSubscribers);
+            }
+            
+            const savedUsers = localStorage.getItem('delices-users');
+            if (savedUsers) {
+                users = JSON.parse(savedUsers);
+            }
+            
+            // Initialiser avec des données de démo si vide
+            if (orders.length === 0) {
+                orders = [
+                    { id: 1, customer: "Amadou Diop", total: "15 200 FCFA", date: new Date(), status: "new" },
+                    { id: 2, customer: "Fatou Ndiaye", total: "8 500 FCFA", date: new Date(Date.now() - 86400000), status: "processing" },
+                    { id: 3, customer: "Jean Koffi", total: "12 300 FCFA", date: new Date(Date.now() - 172800000), status: "delivered" }
+                ];
+            }
+            
+            if (subscribers.length === 0) {
+                subscribers = [
+                    { email: "client1@example.com", date: new Date(Date.now() - 86400000) },
+                    { email: "client2@example.com", date: new Date(Date.now() - 259200000) },
+                    { email: "client3@example.com", date: new Date(Date.now() - 604800000) }
+                ];
+            }
+            
+            // Sauvegarder les données
+            saveData();
+        }
+
+        function saveData() {
+            localStorage.setItem('delices-orders', JSON.stringify(orders));
+            localStorage.setItem('delices-subscribers', JSON.stringify(subscribers));
+            localStorage.setItem('delices-users', JSON.stringify(users));
+        }
+
+        // Exposer certaines fonctions au scope global pour les boutons
+        window.removeSubscriber = removeSubscriber;
+        window.editDish = editDish;
+        window.deleteDish = deleteDish;
+        window.showDishList = showDishList;
+        window.clearActivityLog = clearActivityLog;
+        // ==================== AJOUTER ICI DANS LA BALISE SCRIPT ====================
+
+// Fonction pour afficher le formulaire de commande complet
+function showOrderForm() {
+    const modalBody = document.querySelector('#order-modal .modal-body');
+    let total = cart.reduce((sum, item) => {
+        const price = parseInt(item.price.replace(/[^0-9]/g, ''));
+        return sum + (price * item.quantity);
+    }, 0);
+    
+    modalBody.innerHTML = `
+        <form id="complete-order-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="order-name"><i class="fas fa-user"></i> Nom complet *</label>
+                    <input type="text" id="order-name" required placeholder="Votre nom et prénom">
+                </div>
+                
+                <div class="form-group">
+                    <label for="order-phone"><i class="fas fa-phone"></i> Téléphone *</label>
+                    <input type="tel" id="order-phone" required placeholder="Votre numéro">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="order-address"><i class="fas fa-map-marker-alt"></i> Adresse de livraison *</label>
+                <textarea id="order-address" required placeholder="Rue, quartier, ville..."></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="order-date"><i class="fas fa-calendar"></i> Date de livraison</label>
+                    <input type="date" id="order-date">
+                </div>
+                
+                <div class="form-group">
+                    <label for="order-time"><i class="fas fa-clock"></i> Heure de livraison</label>
+                    <input type="time" id="order-time">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-shopping-cart"></i> Votre commande</label>
+                <div class="order-summary">
+                    ${cart.length > 0 ? cart.map(item => `
+                        <div class="order-item">
+                            <span>${item.name} (x${item.quantity})</span>
+                            <span>${(parseInt(item.price.replace(/[^0-9]/g, '')) * item.quantity).toLocaleString()} FCFA</span>
+                        </div>
+                    `).join('') : '<p class="empty-cart">Panier vide</p>'}
+                    
+                    <div class="order-total">
+                        <strong>Total à payer</strong>
+                        <strong>${total.toLocaleString()} FCFA</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-credit-card"></i> Moyen de paiement *</label>
+                <div class="payment-options">
+                    <div class="payment-option" data-payment="wave">
+                        <i class="fas fa-wave-square"></i>
+                        <span>Wave</span>
+                    </div>
+                    <div class="payment-option" data-payment="orange">
+                        <i class="fas fa-mobile-alt" style="color: #FF6600;"></i>
+                        <span>Orange Money</span>
+                    </div>
+                    <div class="payment-option" data-payment="telecel">
+                        <i class="fas fa-sim-card" style="color: #00A859;"></i>
+                        <span>Telecel</span>
+                    </div>
+                    <div class="payment-option" data-payment="moov">
+                        <i class="fas fa-sim-card" style="color: #E20074;"></i>
+                        <span>Moov Money</span>
+                    </div>
+                    <div class="payment-option" data-payment="card">
+                        <i class="fas fa-credit-card" style="color: #1A1A2E;"></i>
+                        <span>Carte bancaire</span>
+                    </div>
+                    <div class="payment-option" data-payment="cash">
+                        <i class="fas fa-money-bill-wave" style="color: #28a745;"></i>
+                        <span>Espèces</span>
+                    </div>
+                </div>
+                <input type="hidden" id="selected-payment" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="order-notes"><i class="fas fa-sticky-note"></i> Notes supplémentaires</label>
+                <textarea id="order-notes" placeholder="Allergies, instructions spéciales..."></textarea>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="cta-button submit-order-btn">
+                    <i class="fas fa-paper-plane"></i> Envoyer la commande au propriétaire
+                </button>
+                <p class="form-note">La commande sera envoyée directement à Myriam pour traitement immédiat</p>
+            </div>
+        </form>
+    `;
+    
+    // Ajouter les événements pour la sélection du paiement
+    document.querySelectorAll('.payment-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+            this.classList.add('selected');
+            document.getElementById('selected-payment').value = this.dataset.payment;
+        });
+    });
+    
+    // Gérer la soumission du formulaire
+    document.getElementById('complete-order-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitOrderToOwner();
+    });
+}
+
+// Fonction pour envoyer la commande au propriétaire
+function submitOrderToOwner() {
+    const form = document.getElementById('complete-order-form');
+    const formData = {
+        name: document.getElementById('order-name').value,
+        phone: document.getElementById('order-phone').value,
+        address: document.getElementById('order-address').value,
+        date: document.getElementById('order-date').value,
+        time: document.getElementById('order-time').value,
+        payment: document.getElementById('selected-payment').value,
+        notes: document.getElementById('order-notes').value,
+        cart: cart,
+        total: cart.reduce((sum, item) => {
+            const price = parseInt(item.price.replace(/[^0-9]/g, ''));
+            return sum + (price * item.quantity);
+        }, 0),
+        orderId: 'CMD' + Date.now().toString().slice(-6),
+        timestamp: new Date().toISOString()
+    };
+    
+    // Ici, normalement vous enverriez les données à un serveur
+    // Pour cette démo, on simule l'envoi et on affiche un message
+    
+    // Créer un message WhatsApp
+    const whatsappMessage = `*NOUVELLE COMMANDE - Les Délices de chez Myriam*
+
+📋 *Commande #${formData.orderId}*
+👤 *Client:* ${formData.name}
+📞 *Téléphone:* ${formData.phone}
+📍 *Adresse:* ${formData.address}
+🕐 *Livraison:* ${formData.date || 'Aujourd\'hui'} à ${formData.time || 'Dès que possible'}
+
+🍽️ *Commande:*
+${cart.map(item => `• ${item.name} (x${item.quantity}) - ${item.price} pièce`).join('\n')}
+
+💰 *Total:* ${formData.total.toLocaleString()} FCFA
+💳 *Paiement:* ${getPaymentMethodName(formData.payment)}
+📝 *Notes:* ${formData.notes || 'Aucune'}
+
+⏰ *Reçu le:* ${new Date().toLocaleString('fr-FR')}`;
+
+    // Encoder le message pour WhatsApp
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/226 55808964?text=${encodedMessage}`;
+    
+    // Ouvrir WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Enregistrer la commande localement
+    saveOrder(formData);
+    
+    // Afficher confirmation
+    alert(`✅ Commande #${formData.orderId} envoyée à Myriam !\n\nVous allez être redirigé vers WhatsApp pour finaliser.`);
+    
+    // Réinitialiser le panier
+    cart = [];
+    updateCartUI();
+    
+    // Fermer le modal
+    document.getElementById('order-modal').style.display = 'none';
+}
+
+// Fonction pour obtenir le nom du moyen de paiement
+function getPaymentMethodName(method) {
+    const methods = {
+        'wave': 'Wave',
+        'orange': 'Orange Money',
+        'telecel': 'Telecel',
+        'moov': 'Moov Money',
+        'card': 'Carte bancaire',
+        'cash': 'Espèces'
+    };
+    return methods[method] || 'Non spécifié';
+}
+
+// Fonction pour sauvegarder la commande
+function saveOrder(orderData) {
+    let orders = JSON.parse(localStorage.getItem('delices-orders') || '[]');
+    orders.push(orderData);
+    localStorage.setItem('delices-orders', JSON.stringify(orders));
+    
+    // Mettre à jour les statistiques admin
+    updateAdminStats();
+}
+
+// Gestion de la newsletter
+document.getElementById('newsletter-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = this.querySelector('input[type="email"]').value;
+    
+    let subscribers = JSON.parse(localStorage.getItem('delices-subscribers') || '[]');
+    if (!subscribers.some(sub => sub.email === email)) {
+        subscribers.push({
+            email: email,
+            date: new Date().toISOString(),
+            source: 'website'
+        });
+        localStorage.setItem('delices-subscribers', JSON.stringify(subscribers));
+        
+        // Mettre à jour le nombre d'abonnés dans l'admin
+        document.getElementById('total-subscribers').textContent = subscribers.length;
+        
+        // Afficher message de succès
+        alert(`Merci pour votre inscription à notre newsletter !\n\nVous recevrez nos offres exclusives à l'adresse : ${email}`);
+        this.reset();
+        
+        // Ajouter au journal d'activités
+        addToActivityLog(`Nouvel abonné newsletter: ${email}`);
+    } else {
+        alert('Cette adresse email est déjà inscrite à notre newsletter.');
+    }
+});
+
+// Modifier l'ouverture du modal pour utiliser le nouveau formulaire
+document.querySelectorAll('.open-order-modal').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        showOrderForm();
+        document.getElementById('order-modal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+// Ajouter le panier flottant au modal
+document.getElementById('cart-floating').addEventListener('click', function() {
+    showOrderForm();
+    document.getElementById('order-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+});
+
+// Initialiser les images de la galerie pour le mode plein écran
+document.addEventListener('DOMContentLoaded', function() {
+    // Ajouter l'événement de clic sur les images de la galerie
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+        img.addEventListener('click', function() {
+            const caption = this.parentElement.querySelector('.gallery-caption');
+            const title = caption?.querySelector('h4')?.textContent || '';
+            const description = caption?.querySelector('p')?.textContent || '';
+            
+            showFullscreenImage(this.src, title, description);
+        });
+    });
+});
+    </script>
+</body>
+</html>
